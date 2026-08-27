@@ -24,7 +24,7 @@ export default function Hero() {
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -left-20 top-10 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,rgba(79,70,229,0.14),transparent_65%)] blur-2xl"
+          className="absolute -left-20 top-10 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,rgba(77,140,255,0.16),transparent_65%)] blur-2xl"
         />
         <motion.div
           animate={{ x: [0, -50, 0], y: [0, 40, 0], scale: [1, 1.15, 1] }}

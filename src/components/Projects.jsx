@@ -10,10 +10,22 @@ const PROJECTS = [
     subtitle: 'Jeu web en PHP orienté objet & MVC, sans framework',
     description:
       "Un jeu web complet, sécurisé et jouable, développé sans framework en PHP orienté objet et architecture MVC stricte. La grille est générée côté serveur avec la librairie GD pour empêcher toute triche, avec sessions sécurisées et requêtes préparées via PDO.",
+    images: ['/projets/motus-1.webp', '/projets/motus-2.webp', '/projets/motus-3.webp'],
     stack: ['PHP OOP', 'MVC', 'MySQL', 'GD Library', 'HTML/CSS'],
     links: [
       { label: 'Jouer en ligne', href: 'https://motusdragonballz.gamer.gd/' },
     ],
+  },
+  {
+    id: 'bravery-quest',
+    category: 'Développement web',
+    title: 'Bravery Quest',
+    subtitle: 'Jeu web multijoueur, réalisé en équipe',
+    description:
+      "Un jeu web réalisé en équipe, jouable directement dans le navigateur : rendu HTML5 Canvas en JavaScript et parties en temps réel (solo ou duo) via Socket.IO, avec un serveur Node.js hébergé sur Render.",
+    images: ['/projets/bravery-1.webp', '/projets/bravery-2.webp', '/projets/bravery-3.webp'],
+    stack: ['JavaScript', 'Canvas', 'Node.js', 'Socket.IO'],
+    links: [{ label: 'Jouer en ligne', href: 'https://sae402.onrender.com/' }],
   },
   {
     id: 'dataviz',
@@ -22,38 +34,31 @@ const PROJECTS = [
     subtitle: 'Dashboard interactif avec D3.js · SAE 303',
     description:
       "Application interactive pour explorer l'opinion des Français sur le changement climatique, à partir du Baromètre ADEME. Graphiques dynamiques et carte SVG sur-mesure construits avec D3.js : barres, camembert, courbes, histogramme et nuages de points.",
+    images: ['/projets/303-1.webp', '/projets/303-2.webp', '/projets/303-3.webp'],
     stack: ['JavaScript', 'D3.js', 'SVG', 'HTML/CSS', 'Data'],
     links: [{ label: 'Voir le projet', href: '/SAE303/index.html' }],
   },
   {
     id: 'devfront',
-    category: 'Intégration front-end',
-    title: 'DevFront, pixel par pixel',
-    subtitle: "Intégration HTML/CSS d'après une maquette Figma",
+    category: 'Front-end',
+    title: 'DevFront',
+    subtitle: 'Une série de mini-projets HTML, CSS & JS',
     description:
-      "Reproduction d'une maquette Figma au pixel près, en HTML et CSS purs, validée W3C sans une seule erreur. Un travail d'intégration rigoureux, du responsive à l'accessibilité.",
-    stack: ['HTML5', 'CSS3', 'Figma', 'W3C', 'Git'],
+      "Un ensemble de mini-projets réalisés en cours de développement front-end, en HTML, CSS et JavaScript : autant d'exercices pour travailler l'intégration, la mise en page et les interactions.",
+    images: ['/projets/devfront1.webp', '/projets/devfront2.webp', '/projets/devfront3.webp'],
+    stack: ['HTML5', 'CSS3', 'JavaScript'],
     links: [{ label: 'Voir le projet', href: '/devfront/index.html' }],
   },
   {
     id: 'portfolio',
-    category: 'Projet personnel',
-    title: 'Ce portfolio',
+    category: 'Portfolio professionnel',
+    title: 'Portfolio',
     subtitle: 'React, Tailwind CSS & Framer Motion',
     description:
       "Le portfolio que vous parcourez, conçu et développé sur-mesure en React : design personnalisé, thème clair et sombre, animations Framer Motion, et projets consultables directement en ligne.",
+    images: ['/projets/portfolio-1.webp', '/projets/portfolio-2.webp', '/projets/portfolio-3.webp'],
     stack: ['React', 'Tailwind CSS', 'Framer Motion', 'Vite'],
     links: [],
-  },
-  {
-    id: 'bravery-quest',
-    category: 'Développement web',
-    title: 'Bravery Quest',
-    subtitle: 'Jeu web en temps réel · Canvas & Socket.IO',
-    description:
-      "Un jeu jouable directement dans le navigateur, développé en JavaScript avec un rendu HTML5 Canvas et une communication en temps réel via Socket.IO. Serveur Node.js hébergé sur Render.",
-    stack: ['JavaScript', 'Canvas', 'Node.js', 'Socket.IO'],
-    links: [{ label: 'Jouer en ligne', href: 'https://sae402.onrender.com/' }],
   },
 ]
 
@@ -156,47 +161,73 @@ function Row({ p, index, isOpen, onToggle }) {
         style={{ gridTemplateRows: isOpen ? '1fr' : '0fr', transitionTimingFunction: `cubic-bezier(${EASE.join(',')})` }}
       >
         <div className="overflow-hidden">
-          <div className="grid gap-6 pb-8 pl-[3.25rem] pr-4 md:grid-cols-[1.4fr_1fr] md:pl-[5.5rem]">
-            <div>
-              <p
-                className={`mb-3 text-sm font-medium text-accent ${reveal(60).className}`}
-                style={reveal(60).style}
+          <div className="pb-8 pl-[3.25rem] pr-4 md:pl-[5.5rem]">
+            {p.images.length > 0 && (
+              <div
+                className={`mb-7 grid gap-3 sm:grid-cols-3 ${reveal(40).className}`}
+                style={reveal(40).style}
               >
-                {p.subtitle}
-              </p>
-              <p
-                className={`max-w-xl text-[15px] leading-relaxed text-ink-soft ${reveal(120).className}`}
-                style={reveal(120).style}
-              >
-                {p.description}
-              </p>
-              {p.links.length > 0 && (
-                <div
-                  className={`mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 ${reveal(240).className}`}
-                  style={reveal(240).style}
-                >
-                  {p.links.map((l) => (
-                    <ArrowLink key={l.label} href={l.href}>
-                      {l.label}
-                    </ArrowLink>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="flex flex-wrap content-start gap-2 md:justify-end">
-              {p.stack.map((s, i) => {
-                const r = reveal(200 + i * 70)
-                return (
-                  <span
-                    key={s}
-                    className={`rounded-full border px-3 py-1 text-xs font-medium ${r.className}`}
-                    style={{ ...r.style, borderColor: 'color-mix(in srgb, var(--color-accent) 34%, transparent)', color: 'var(--color-ink-soft)' }}
+                {p.images.map((src, i) => (
+                  <a
+                    key={src}
+                    href={src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/img block overflow-hidden rounded-xl border border-line bg-surface"
                   >
-                    {s}
-                  </span>
-                )
-              })}
+                    <img
+                      src={src}
+                      alt={`${p.title}, aperçu ${i + 1}`}
+                      loading="lazy"
+                      className="aspect-video w-full object-cover transition-transform duration-500 group-hover/img:scale-105"
+                    />
+                  </a>
+                ))}
+              </div>
+            )}
+
+            <div className="grid gap-6 md:grid-cols-[1.4fr_1fr]">
+              <div>
+                <p
+                  className={`mb-3 text-sm font-medium text-accent ${reveal(80).className}`}
+                  style={reveal(80).style}
+                >
+                  {p.subtitle}
+                </p>
+                <p
+                  className={`max-w-xl text-[15px] leading-relaxed text-ink-soft ${reveal(140).className}`}
+                  style={reveal(140).style}
+                >
+                  {p.description}
+                </p>
+                {p.links.length > 0 && (
+                  <div
+                    className={`mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 ${reveal(240).className}`}
+                    style={reveal(240).style}
+                  >
+                    {p.links.map((l) => (
+                      <ArrowLink key={l.label} href={l.href}>
+                        {l.label}
+                      </ArrowLink>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-wrap content-start gap-2 md:justify-end">
+                {p.stack.map((s, i) => {
+                  const r = reveal(200 + i * 70)
+                  return (
+                    <span
+                      key={s}
+                      className={`rounded-full border px-3 py-1 text-xs font-medium ${r.className}`}
+                      style={{ ...r.style, borderColor: 'color-mix(in srgb, var(--color-accent) 34%, transparent)', color: 'var(--color-ink-soft)' }}
+                    >
+                      {s}
+                    </span>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
@@ -209,7 +240,7 @@ export default function Projects() {
   const [open, setOpen] = useState(-1)
 
   return (
-    <section id="projects" className="relative px-6 py-28 md:py-40">
+    <section id="projects" className="relative px-6 py-20 md:py-28">
       <div className="mx-auto max-w-6xl">
         <motion.div
           variants={stagger}

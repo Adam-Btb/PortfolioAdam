@@ -4,13 +4,15 @@ import { fadeUp, stagger, viewport } from '../lib/motion'
 const MARQUEE = [
   'HTML', 'CSS', 'JavaScript', 'React', 'PHP', 'SQL / MySQL',
   'C#', 'Unity', 'D3.js', 'Figma', 'GitHub', 'POO / MVC',
+  'Suite Adobe', 'Claude', 'ChatGPT',
 ]
 
 const GROUPS = [
   { title: 'Front-end', items: ['HTML', 'CSS', 'JavaScript', 'React'] },
   { title: 'Back-end & Données', items: ['PHP (POO/MVC)', 'SQL / MySQL', 'C#'] },
   { title: 'Data & Dataviz', items: ['D3.js', 'Analyse de KPI'] },
-  { title: 'Outils & Design', items: ['Figma', 'GitHub', 'Unity'] },
+  { title: 'Outils & Design', items: ['Figma', 'Suite Adobe', 'GitHub', 'Unity', 'PowerPoint'] },
+  { title: 'IA', items: ['Claude', 'Claude Code', 'ChatGPT', 'Gemini', 'Nano Banana'] },
 ]
 
 export default function Skills() {
@@ -36,7 +38,7 @@ export default function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
-          className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-5"
         >
           {GROUPS.map((g) => (
             <motion.div key={g.title} variants={fadeUp}>

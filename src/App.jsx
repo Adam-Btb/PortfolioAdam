@@ -6,10 +6,13 @@ import Projects from './components/Projects'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import ScrollTop from './components/ScrollTop'
+import BackgroundPaths from './components/BackgroundPaths'
 
 export default function App() {
   return (
     <>
+      <BackgroundPaths />
       <div className="grain" aria-hidden />
       <Nav />
       <main>
@@ -21,6 +24,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <ScrollTop />
     </>
   )
 }

@@ -11,8 +11,8 @@
   --color-line: #24242B;
   --color-surface: rgba(255, 255, 255, 0.035);
   --color-surface-2: rgba(255, 255, 255, 0.05);
-  --color-accent: #8B80F9;
-  --color-accent-soft: #1E1B3A;
+  --color-accent: #4d8cff;
+  --color-accent-soft: #14233D;
   --color-highlight: rgba(255, 255, 255, 0.06);
 
   --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
@@ -26,8 +26,8 @@
   --color-line: #E6E4DD;
   --color-surface: rgba(255, 255, 255, 0.55);
   --color-surface-2: rgba(255, 255, 255, 0.82);
-  --color-accent: #4F46E5;
-  --color-accent-soft: #EEF0FF;
+  --color-accent: #2f74e6;
+  --color-accent-soft: #EAF1FF;
   --color-highlight: rgba(255, 255, 255, 0.7);
 }
 
@@ -53,6 +53,31 @@
     background-color: var(--color-accent);
     color: #ffffff;
   }
+}
+
+.paths-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  color: var(--color-line);
+  opacity: 0.9;
+  -webkit-mask-image: radial-gradient(ellipse 120% 90% at 50% 28%, black 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse 120% 90% at 50% 28%, black 30%, transparent 85%);
+}
+.path-line {
+  stroke-dasharray: 4 6;
+  animation-name: pathFlow;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: stroke-dashoffset;
+}
+@keyframes pathFlow {
+  to { stroke-dashoffset: -100; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .path-line { animation: none; }
 }
 
 .grain {
