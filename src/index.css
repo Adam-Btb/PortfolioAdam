@@ -1,128 +1,137 @@
 @import "tailwindcss";
 
+/* ============================================================
+   AdamOS 26 — le portfolio est un système d'exploitation.
+   Bureau marine tramé, fenêtres crème à contour noir et ombre
+   franche, barres de titre colorées par application.
+   ============================================================ */
+
 @theme {
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: "Pixelify Sans", ui-monospace, monospace;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Pixelify Sans", ui-monospace, monospace; /* utilisé par Motus.exe */
 
-  --color-canvas: #0B0B0E;
-  --color-ink: #F4F3EF;
-  --color-ink-soft: #A6A6A0;
-  --color-muted: #6C6C68;
-  --color-line: #24242B;
-  --color-surface: rgba(255, 255, 255, 0.035);
-  --color-surface-2: rgba(255, 255, 255, 0.05);
-  --color-accent: #4d8cff;
-  --color-accent-soft: #14233D;
-  --color-highlight: rgba(255, 255, 255, 0.06);
+  --color-desk: #23345F;
+  --color-desk-dot: #2E4581;
+  --color-win: #EFEAE0;
+  --color-win-2: #E2DCCF;
+  --color-line: #141414;
+  --color-muted: #4A4A4A;      /* 8:1 sur la fenêtre */
+  --color-term: #141414;
 
-  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+  --color-tomato: #FF5E3A;
+  --color-sun: #FFC53D;
+  --color-mint: #3DDC97;
+  --color-sky: #6FB7FF;
+  --color-pink: #FF8FC7;
+
+  /* Jetons de Motus.exe */
+  --color-plateau: #1238B8;
+  --color-plateau-deep: #0C2785;
+  --color-cell: #2550D6;
+  --color-cream: #FFF6E5;
+  --color-ink: #0B1E66;
+  --color-red: #E8402F;
+  --color-red-deep: #C8301F;
+  --color-yellow: #FFC42E;
 }
-
-:root.light {
-  --color-canvas: #F7F6F3;
-  --color-ink: #0A0A0A;
-  --color-ink-soft: #4B4B47;
-  --color-muted: #8A8A82;
-  --color-line: #E6E4DD;
-  --color-surface: rgba(255, 255, 255, 0.55);
-  --color-surface-2: rgba(255, 255, 255, 0.82);
-  --color-accent: #2f74e6;
-  --color-accent-soft: #EAF1FF;
-  --color-highlight: rgba(255, 255, 255, 0.7);
-}
-
-:root { color-scheme: dark; }
-:root.light { color-scheme: light; }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  html,
+  body,
+  #root {
+    height: 100%;
   }
 
   body {
-    background-color: var(--color-canvas);
-    color: var(--color-ink);
-    font-family: var(--font-body);
+    background-color: var(--color-desk);
+    color: var(--color-line);
+    font-family: var(--font-sans);
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-    transition: background-color 0.6s var(--ease-fluid);
+    overflow: hidden;
+  }
+
+  button,
+  [role="button"],
+  label[for] {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
   }
 
   ::selection {
-    background-color: var(--color-accent);
-    color: #ffffff;
+    background-color: var(--color-sun);
+    color: var(--color-line);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-sky);
+    outline-offset: 2px;
   }
 }
 
-.paths-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-  color: var(--color-line);
-  opacity: 0.9;
-  -webkit-mask-image: radial-gradient(ellipse 120% 90% at 50% 28%, black 30%, transparent 85%);
-  mask-image: radial-gradient(ellipse 120% 90% at 50% 28%, black 30%, transparent 85%);
+/* Bureau : trame de points + filigrane */
+.desk {
+  background-color: var(--color-desk);
+  background-image: radial-gradient(var(--color-desk-dot) 1px, transparent 1.3px);
+  background-size: 6px 6px;
 }
-.path-line {
-  stroke-dasharray: 4 6;
-  animation-name: pathFlow;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  will-change: stroke-dashoffset;
+
+/* Barre de titre inactive : rayures */
+.stripes {
+  background-color: var(--color-win-2);
+  background-image: repeating-linear-gradient(0deg, transparent 0 2px, rgba(20, 20, 20, 0.12) 2px 3px);
 }
-@keyframes pathFlow {
-  to { stroke-dashoffset: -100; }
+
+/* Bouton en relief façon système rétro */
+.btn {
+  border: 2px solid var(--color-line);
+  box-shadow: 3px 3px 0 var(--color-line);
+  transition: transform 0.08s ease-out, box-shadow 0.08s ease-out, background-color 0.15s;
 }
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--color-line);
+}
+
+.btn:active,
+.btn[aria-pressed="true"] {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--color-line);
+}
+
+/* Touche de Motus.exe */
+.key {
+  --key-shadow: var(--color-plateau-deep);
+  box-shadow: 0 5px 0 var(--key-shadow);
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+}
+
+.key:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 0 var(--key-shadow);
+}
+
+.key:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--key-shadow);
+}
+
+@keyframes caret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.caret {
+  animation: caret 1s step-end infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .path-line { animation: none; }
-}
-
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-canvas);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-muted);
-  border-radius: 999px;
-  border: 3px solid var(--color-canvas);
-}
-
-.logo-light { display: none; }
-.logo-dark { display: block; }
-:root.light .logo-light { display: block; }
-:root.light .logo-dark { display: none; }
-
-@keyframes rowSheen {
-  from { transform: translateX(-260%) skewX(-12deg); }
-  to { transform: translateX(380%) skewX(-12deg); }
-}
-.group:hover .row-sheen { animation: rowSheen 1s cubic-bezier(0.32, 0.72, 0, 1); }
-@media (prefers-reduced-motion: reduce) {
-  .group:hover .row-sheen { animation: none; }
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 40s linear infinite;
-}
-.marquee-mask {
-  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  .caret { animation: none; }
+  .btn, .btn:hover, .btn:active, .key, .key:hover, .key:active { transition: none; }
 }
