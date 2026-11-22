@@ -1,11 +1,15 @@
-import { useRef, useState } from 'react'
+import { lazy, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight, CheckCircle, LinkSimple, WarningCircle } from '@phosphor-icons/react'
 import { EMAIL, JOURNAL, PROJECTS, PROOFS, SPECS, TIERS } from '../data/content'
 import { LEGAL_NOTICE, LEGAL_UPDATED, PRIVACY } from '../data/legal'
-import MotusGame from '../components/MotusGame'
 import { PixelIcon } from './icons'
-import { GloutonGame, MinesGame, SnakeGame } from './games'
+
+// Jeux chargés à la demande : leur code n'est téléchargé qu'à l'ouverture de leur fenêtre.
+const MotusGame = lazy(() => import('../components/MotusGame'))
+const SnakeGame = lazy(() => import('./games').then((m) => ({ default: m.SnakeGame })))
+const MinesGame = lazy(() => import('./games').then((m) => ({ default: m.MinesGame })))
+const GloutonGame = lazy(() => import('./games').then((m) => ({ default: m.GloutonGame })))
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqpdala'
 export const CV_URL = '/CV_Adam_Bettayeb.pdf'
@@ -106,7 +110,7 @@ export function Welcome({ os }) {
           <PixelIcon name="folder" size={20} /> Ouvrir mes projets
         </Btn>
         <Btn variant="mint" onClick={() => os.open('system')}>
-          <PixelIcon name="computer" size={20} /> À propos de cet Adam
+          <PixelIcon name="computer" size={20} /> À propos de moi
         </Btn>
         <Btn variant="pink" onClick={() => os.open('mail')}>
           <PixelIcon name="mail" size={20} /> M'écrire
@@ -351,7 +355,7 @@ export function ProjectApp({ payload: p }) {
   )
 }
 
-/* ---------- À propos de cet Adam (compétences) ---------- */
+/* ---------- À propos de moi (compétences) ---------- */
 
 export function SystemApp({ os }) {
   return (
@@ -672,7 +676,7 @@ export const APPS = {
   quick: { title: 'Version_rapide.txt', icon: 'doc', accent: 'sun', w: 780, h: 760, Comp: QuickApp },
   projects: { title: 'Projets', icon: 'folder', accent: 'tomato', w: 760, h: 560, Comp: Explorer },
   project: { title: (p) => p.file, icon: 'doc', accent: 'tomato', w: 820, h: 640, Comp: ProjectApp },
-  system: { title: 'À propos de cet Adam', icon: 'computer', accent: 'mint', w: 700, h: 640, Comp: SystemApp },
+  system: { title: 'À propos de moi', icon: 'computer', accent: 'mint', w: 700, h: 640, Comp: SystemApp },
   journal: { title: 'journal_systeme.log', icon: 'log', accent: 'sun', w: 760, h: 480, Comp: JournalApp },
   mail: { title: 'Messagerie : nouveau message', icon: 'mail', accent: 'pink', w: 640, h: 640, Comp: MailApp },
   motus: { title: 'Motus.exe', icon: 'motus', accent: 'sun', w: 620, h: 700, Comp: MotusApp },
@@ -721,7 +725,7 @@ export const DESKTOP = [
   { app: 'welcome', label: 'Bienvenue.txt', icon: 'doc' },
   { app: 'quick', label: 'Version rapide', icon: 'doc' },
   { app: 'projects', label: 'Projets', icon: 'folder' },
-  { app: 'system', label: 'À propos de cet Adam', icon: 'computer' },
+  { app: 'system', label: 'À propos de moi', icon: 'computer' },
   { app: 'journal', label: 'Parcours.log', icon: 'log' },
   { app: 'mail', label: 'Messagerie', icon: 'mail' },
   { app: 'snake', label: 'Snake.exe', icon: 'snake' },

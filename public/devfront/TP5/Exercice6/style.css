@@ -13,15 +13,15 @@ body {
 }
 
 .image1 {
-	background-image: url('image1.png');
+	background-image: url('image1.webp');
 }
 
 .image2 {
-	background-image: url('image2.jpg');
+	background-image: url('image2.webp');
 }
 
 .image3 {
-	background-image: url('image3.png');
+	background-image: url('image3.webp');
 }
 
 .section {

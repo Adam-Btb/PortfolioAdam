@@ -1,2 +1,8 @@
 node_modules
 .claude
+
+# Build : Vercel reconstruit le site à chaque déploiement (voir vercel.json)
+dist/
+
+# Archive locale de l'ancien portfolio, inutile au site (47 Mo)
+Portfolio.zip

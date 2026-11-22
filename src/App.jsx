@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import Window from './os/Window'
 import { APPS, hashFor, resolveHash } from './os/apps'
@@ -179,7 +179,9 @@ export default function App() {
                   onClose={() => close(id)}
                   onMinimize={() => dispatch({ type: 'min', id })}
                 >
-                  <Comp payload={w.payload} os={os} close={() => close(id)} active={id === activeId && !w.min} />
+                  <Suspense fallback={<p className="p-6 font-pixel text-lg">Chargement…</p>}>
+                    <Comp payload={w.payload} os={os} close={() => close(id)} active={id === activeId && !w.min} />
+                  </Suspense>
                 </Window>
               )
             })}
