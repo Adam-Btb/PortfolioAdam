@@ -248,7 +248,7 @@ export default function MotusGame() {
             <p className="max-w-[34ch] text-lg leading-snug">
               {demoWon ? (
                 <>
-                  <span className="font-semibold">Alternant.</span> C'est ce que je veux devenir à la rentrée 2026 — dans votre équipe.
+                  <span className="font-semibold">Alternant.</span> C'est ce que je veux devenir à la rentrée 2026, dans votre équipe.
                 </>
               ) : mode === 'won' ? (
                 <>

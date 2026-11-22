@@ -1,16 +1,26 @@
 @import "tailwindcss";
 
 /* ============================================================
-   AdamOS 26 — le portfolio est un système d'exploitation.
+   AdamOS 26 : le portfolio est un système d'exploitation.
    Bureau marine tramé, fenêtres crème à contour noir et ombre
    franche, barres de titre colorées par application.
    ============================================================ */
 
+/* Chiffres lisibles : dans Pixelify Sans le « 2 » ressemble à un « Z » et le « 0 » à un « O ».
+   Cette police ne couvre que les chiffres (unicode-range) et passe avant Pixelify. */
+@font-face {
+  font-family: "Pixel Digits";
+  src: url("/fonts/plex-mono-digits-600.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+}
+
 @theme {
-  --font-pixel: "Pixelify Sans", ui-monospace, monospace;
+  --font-pixel: "Pixel Digits", "Pixelify Sans", ui-monospace, monospace;
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --font-display: "Pixelify Sans", ui-monospace, monospace; /* utilisé par Motus.exe */
+  --font-display: "Pixel Digits", "Pixelify Sans", ui-monospace, monospace; /* utilisé par Motus.exe */
 
   --color-desk: #23345F;
   --color-desk-dot: #2E4581;
@@ -81,6 +91,41 @@
   background-size: 6px 6px;
 }
 
+/* Fond d'écran animé, volontairement léger : quelques pixels qui montent
+   et scintillent. Uniquement transform + opacity (composités par le GPU),
+   aucun JavaScript, mis en pause par le navigateur quand l'onglet est masqué. */
+.wall-pixel {
+  position: absolute;
+  bottom: -12px;
+  width: var(--s);
+  height: var(--s);
+  background: var(--c);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation:
+    pixel-rise var(--d) linear var(--delay) infinite,
+    pixel-twinkle 3.2s steps(2, jump-none) var(--delay) infinite;
+}
+
+@keyframes pixel-rise {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--dx), -110vh, 0); }
+}
+
+@keyframes pixel-twinkle {
+  0%, 100% { opacity: var(--o); }
+  50% { opacity: calc(var(--o) * 0.35); }
+}
+
+.wall-logo {
+  animation: logo-breathe 9s ease-in-out infinite;
+}
+
+@keyframes logo-breathe {
+  0%, 100% { opacity: 0.06; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.1; transform: translate(-50%, -50%) scale(1.04); }
+}
+
 /* Barre de titre inactive : rayures */
 .stripes {
   background-color: var(--color-win-2);
@@ -132,6 +177,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .caret { animation: none; }
+  .caret,
+  .wall-pixel,
+  .wall-logo { animation: none; }
   .btn, .btn:hover, .btn:active, .key, .key:hover, .key:active { transition: none; }
 }

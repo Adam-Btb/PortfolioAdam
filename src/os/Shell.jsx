@@ -15,7 +15,7 @@ function useClock() {
 }
 
 /* Barre de menus : le h1 du site, toujours visible. */
-export function MenuBar() {
+export function MenuBar({ open }) {
   const time = useClock()
   return (
     <header className="relative z-[60] flex h-9 shrink-0 items-center justify-between gap-3 border-b-2 border-line bg-win px-3">
@@ -23,9 +23,12 @@ export function MenuBar() {
         <img src="/logo-noir.png" alt="" className="size-5 object-contain" />
         <span className="font-pixel text-base font-bold">AdamOS 26</span>
         <span className="hidden text-line/30 sm:inline" aria-hidden="true">|</span>
-        <h1 className="sr-only truncate font-pixel text-base sm:not-sr-only">Adam Bettayeb — développeur full stack</h1>
+        <h1 className="sr-only truncate font-pixel text-base sm:not-sr-only">Adam Bettayeb, développeur full stack</h1>
       </div>
       <div className="flex shrink-0 items-center gap-3 font-pixel text-base">
+        <button type="button" onClick={() => open('quick')} className="hidden min-h-8 border-2 border-line bg-sun px-2 text-sm font-semibold hover:bg-white lg:block">
+          Version rapide
+        </button>
         <span className="hidden items-center gap-1.5 md:flex">
           <span className="size-2.5 bg-mint ring-2 ring-line" aria-hidden="true" />
           Disponible · alternance 2026
@@ -33,6 +36,53 @@ export function MenuBar() {
         <time aria-label={`Heure : ${time}`}>{time}</time>
       </div>
     </header>
+  )
+}
+
+/* Fond d'écran animé : 15 pixels qui montent lentement (CSS seulement). */
+const PIXELS = [
+  ['5%', 4, 'mint', 0.55, 46, -3, 18],
+  ['12%', 3, 'white', 0.4, 62, -20, -10],
+  ['19%', 5, 'sun', 0.45, 54, -38, 12],
+  ['27%', 3, 'sky', 0.5, 70, -8, -16],
+  ['34%', 4, 'pink', 0.4, 58, -44, 10],
+  ['42%', 3, 'white', 0.35, 66, -27, 14],
+  ['49%', 5, 'mint', 0.4, 50, -12, -12],
+  ['56%', 3, 'sun', 0.5, 74, -52, 8],
+  ['63%', 4, 'sky', 0.45, 56, -31, -14],
+  ['70%', 3, 'white', 0.4, 68, -6, 16],
+  ['77%', 5, 'pink', 0.35, 60, -40, -8],
+  ['84%', 3, 'mint', 0.5, 72, -18, 12],
+  ['90%', 4, 'sun', 0.4, 52, -48, -18],
+  ['95%', 3, 'sky', 0.45, 64, -24, 10],
+  ['38%', 2, 'white', 0.5, 80, -60, 6],
+]
+
+export function Wallpaper() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+      {PIXELS.map(([x, s, c, o, d, delay, dx], i) => (
+        <span
+          key={i}
+          className="wall-pixel"
+          style={{
+            left: x,
+            '--s': `${s}px`,
+            '--c': c === 'white' ? '#FFFFFF' : `var(--color-${c})`,
+            '--o': o,
+            '--d': `${d}s`,
+            '--delay': `${delay}s`,
+            '--dx': `${dx}px`,
+          }}
+        />
+      ))}
+      <img
+        src="/logo-blanc.png"
+        alt=""
+        className="wall-logo absolute left-1/2 top-1/2 size-40 object-contain"
+        style={{ opacity: 0.07, transform: 'translate(-50%, -50%)' }}
+      />
+    </div>
   )
 }
 
@@ -106,7 +156,7 @@ function StartMenu({ open, onClose, os }) {
           <div className="flex w-9 items-end justify-center bg-line pb-3">
             <span className="font-pixel text-lg font-bold text-win [writing-mode:vertical-rl] rotate-180">AdamOS 26</span>
           </div>
-          <ul className="flex-1 py-1">
+          <ul className="max-h-[calc(100dvh-8rem)] flex-1 overflow-y-auto py-1">
             {items.map((d) => (
               <li key={d.label} role="none">
                 {d.href ? (
@@ -256,6 +306,9 @@ export function MobileHome({ open }) {
           Interface, serveur et base de données. Je cherche une alternance d'un an pour la rentrée 2026.
         </p>
         <div className="mt-4 grid gap-2">
+          <button type="button" onClick={() => open('quick')} className="btn min-h-11 bg-sun font-pixel text-base font-medium">
+            Tout voir en 30 secondes
+          </button>
           <button type="button" onClick={() => open('projects')} className="btn min-h-11 bg-tomato font-pixel text-base font-medium">
             Ouvrir mes projets
           </button>

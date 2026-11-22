@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
 import Window from './os/Window'
-import { APPS, HASH_APPS } from './os/apps'
-import { BootScreen, DesktopIcons, MenuBar, MobileHome, OffScreen, Taskbar } from './os/Shell'
+import { APPS, hashFor, resolveHash } from './os/apps'
+import { BootScreen, DesktopIcons, MenuBar, MobileHome, OffScreen, Taskbar, Wallpaper } from './os/Shell'
 
 /* ---------- Gestionnaire de fenêtres ---------- */
 
@@ -44,7 +44,7 @@ function topVisible(s, exclude) {
 function place(app, count, area, at) {
   const w = Math.min(app.w, area.w - 24)
   const h = Math.min(app.h, area.h - 16)
-  let x = at?.x ?? (area.w >= 900 ? 132 : 12) + (count % 6) * 36
+  let x = at?.x ?? (area.w >= 1100 ? 224 : 12) + (count % 6) * 36
   let y = at?.y ?? 12 + (count % 6) * 30
   if (x + w > area.w - 8) x = Math.max(8, area.w - w - 8)
   if (y + h > area.h - 8) y = Math.max(8, area.h - h - 8)
@@ -116,15 +116,15 @@ export default function App() {
     if (mobile || stateRef.current.ids.length) return
     const a = area()
     if (a.w >= 1320) open('projects', undefined, { x: a.w - Math.min(760, a.w - 24) - 24, y: 56 })
-    open('welcome', undefined, { x: a.w >= 900 ? 132 : 12, y: 12 })
+    open('welcome', undefined, { x: a.w >= 1100 ? 224 : 12, y: 12 })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mobile])
 
-  // Ancres partageables (#mentions-legales, #confidentialite) : ouvrent la fenêtre correspondante.
+  // Liens directs (#projet-motus, #snake, #version-rapide…) : ouvrent la fenêtre correspondante.
   useEffect(() => {
     const fromHash = () => {
-      const appId = HASH_APPS[window.location.hash]
-      if (appId) open(appId)
+      const target = resolveHash(window.location.hash)
+      if (target) open(target.app, target.payload)
     }
     fromHash()
     window.addEventListener('hashchange', fromHash)
@@ -142,13 +142,20 @@ export default function App() {
 
   const activeId = topVisible(state)
 
+  // La barre d'adresse suit la fenêtre active : l'URL affichée est toujours partageable.
+  useEffect(() => {
+    const w = activeId && state.wins[activeId]
+    const h = w ? hashFor(w.app, w.payload) : ''
+    if (window.location.hash !== h) history.replaceState(null, '', h || window.location.pathname + window.location.search)
+  }, [activeId, state.wins])
+
   return (
     <MotionConfig reducedMotion="user">
       <div className="flex h-[100dvh] flex-col">
-        <MenuBar />
+        <MenuBar open={open} />
 
         <main ref={deskRef} className="desk relative min-h-0 flex-1 overflow-hidden">
-          <img src="/logo-blanc.png" alt="" aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 size-40 -translate-x-1/2 -translate-y-1/2 object-contain opacity-[0.07]" />
+          <Wallpaper />
 
           {mobile ? <MobileHome open={open} /> : <DesktopIcons open={open} />}
 
@@ -172,7 +179,7 @@ export default function App() {
                   onClose={() => close(id)}
                   onMinimize={() => dispatch({ type: 'min', id })}
                 >
-                  <Comp payload={w.payload} os={os} close={() => close(id)} />
+                  <Comp payload={w.payload} os={os} close={() => close(id)} active={id === activeId && !w.min} />
                 </Window>
               )
             })}

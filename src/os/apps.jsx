@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, CheckCircle, WarningCircle } from '@phosphor-icons/react'
+import { ArrowUpRight, CheckCircle, LinkSimple, WarningCircle } from '@phosphor-icons/react'
 import { EMAIL, JOURNAL, PROJECTS, PROOFS, SPECS, TIERS } from '../data/content'
 import { LEGAL_NOTICE, LEGAL_UPDATED, PRIVACY } from '../data/legal'
 import MotusGame from '../components/MotusGame'
 import { PixelIcon } from './icons'
+import { GloutonGame, MinesGame, SnakeGame } from './games'
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaqpdala'
 export const CV_URL = '/CV_Adam_Bettayeb.pdf'
@@ -33,7 +34,7 @@ function Btn({ as = 'button', variant = 'win', className = '', ...props }) {
 function LayerChips({ layers, size = 'sm' }) {
   const label = TIERS.map((t) => `${t.label} : ${layers[t.id] ? 'oui' : 'non'}`).join(', ')
   return (
-    <span className="flex gap-1" role="img" aria-label={`Couches codées — ${label}`}>
+    <span className="flex gap-1" role="img" aria-label={`Couches codées : ${label}`}>
       {TIERS.map((t) => (
         <span
           key={t.id}
@@ -45,6 +46,26 @@ function LayerChips({ layers, size = 'sm' }) {
         </span>
       ))}
     </span>
+  )
+}
+
+function CopyLink({ app, payload, label = 'Copier le lien' }) {
+  const [done, setDone] = useState(false)
+  const copy = async () => {
+    const url = linkFor(app, payload)
+    try {
+      await navigator.clipboard.writeText(url)
+    } catch {
+      window.prompt('Copiez ce lien :', url)
+    }
+    setDone(true)
+    setTimeout(() => setDone(false), 2000)
+  }
+  return (
+    <Btn onClick={copy}>
+      <LinkSimple size={16} weight="bold" />
+      <span aria-live="polite">{done ? 'Lien copié' : label}</span>
+    </Btn>
   )
 }
 
@@ -76,7 +97,11 @@ export function Welcome({ os }) {
         ))}
       </dl>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      <Btn variant="sun" onClick={() => os.open('quick')} className="mt-6 w-full">
+        <PixelIcon name="doc" size={20} /> Pressé ? Tout voir en 30 secondes
+      </Btn>
+
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <Btn variant="tomato" onClick={() => os.open('projects')}>
           <PixelIcon name="folder" size={20} /> Ouvrir mes projets
         </Btn>
@@ -95,6 +120,113 @@ export function Welcome({ os }) {
         Astuce : les fenêtres se déplacent par leur barre de titre, <kbd className="border border-line/40 bg-white px-1 font-mono text-xs">Échap</kbd> ferme
         la fenêtre active.
       </p>
+    </div>
+  )
+}
+
+/* ---------- Version_rapide.txt : tout l'essentiel sur une page ---------- */
+
+function QuickSection({ title, children }) {
+  return (
+    <section className="border-t-2 border-line/20 pt-5">
+      <h3 className="font-pixel text-xl font-semibold">{title}</h3>
+      <div className="mt-3">{children}</div>
+    </section>
+  )
+}
+
+export function QuickApp({ os }) {
+  return (
+    <div className="grid gap-6 p-6 md:p-8">
+      <header>
+        <p className="font-pixel text-sm uppercase tracking-wider text-muted">Version rapide · 30 secondes</p>
+        <p className="mt-2 font-pixel text-4xl font-bold leading-none">Adam Bettayeb</p>
+        <p className="mt-2 font-pixel text-xl font-semibold">
+          <span className="bg-sun px-1.5 box-decoration-clone">Développeur full stack</span>
+        </p>
+        <p className="mt-3 max-w-[60ch] leading-relaxed">
+          En 3<sup>e</sup> année de BUT MMI à l'IUT de Bobigny. Je cherche une <strong>alternance d'un an pour la rentrée 2026</strong>,
+          au rythme d'une semaine à l'école et une semaine en entreprise.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Btn as="a" href={CV_URL} target="_blank" rel="noopener noreferrer" variant="sun">
+            <PixelIcon name="pdf" size={18} /> CV (PDF)
+          </Btn>
+          <Btn variant="pink" onClick={() => os.open('mail')}>
+            <PixelIcon name="mail" size={18} /> M'écrire
+          </Btn>
+          <Btn as="a" href="tel:+33664502568">
+            06 64 50 25 68
+          </Btn>
+          <Btn as="a" href="https://www.linkedin.com/in/adambettayeb/" target="_blank" rel="noopener noreferrer">
+            LinkedIn <ArrowUpRight size={14} weight="bold" />
+          </Btn>
+          <Btn as="a" href="https://github.com/Adam-Btb" target="_blank" rel="noopener noreferrer">
+            GitHub <ArrowUpRight size={14} weight="bold" />
+          </Btn>
+        </div>
+      </header>
+
+      <QuickSection title="Stack">
+        <dl className="grid gap-1.5 font-mono text-sm">
+          {SPECS.slice(0, 5).map((s) => (
+            <div key={s.k} className="grid gap-x-3 sm:grid-cols-[9.5rem_1fr]">
+              <dt className="font-medium">{s.k}</dt>
+              <dd>{s.v}</dd>
+            </div>
+          ))}
+        </dl>
+      </QuickSection>
+
+      <QuickSection title="Projets">
+        <ul className="grid gap-3">
+          {PROJECTS.map((p) => (
+            <li key={p.id} className="grid gap-3 border-2 border-line bg-white p-3 sm:grid-cols-[8.5rem_1fr]">
+              <img src={p.images[0]} alt="" loading="lazy" width="272" height="170" className="aspect-[16/10] w-full border-2 border-line object-cover" />
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <p className="font-pixel text-lg font-semibold leading-tight">{p.title}</p>
+                  <LayerChips layers={p.layers} />
+                </div>
+                <p className="mt-0.5 text-sm text-muted">{p.category}</p>
+                <p className="mt-1 text-sm">{p.subtitle}</p>
+                {p.role && (
+                  <p className="mt-1 text-sm">
+                    <strong>Mon rôle :</strong> {p.role}
+                  </p>
+                )}
+                <div className="mt-1 flex flex-wrap gap-x-4 text-sm">
+                  <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 font-medium underline underline-offset-2">
+                    {p.link.label} <ArrowUpRight size={14} weight="bold" />
+                  </a>
+                  <button type="button" onClick={() => os.open('project', p)} className="inline-flex min-h-11 items-center font-medium underline underline-offset-2">
+                    Détails
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </QuickSection>
+
+      <QuickSection title="Parcours">
+        <ol className="grid gap-2 text-sm">
+          {JOURNAL.map((l) => (
+            <li key={l.date + l.text} className="grid gap-x-3 sm:grid-cols-[6.5rem_1fr]">
+              <span className="font-mono text-muted">{l.date}</span>
+              <span>{l.text}</span>
+            </li>
+          ))}
+        </ol>
+      </QuickSection>
+
+      <QuickSection title="Savoir-être">
+        <p className="text-sm">{SPECS.find((s) => s.k === 'Savoir-être')?.v}</p>
+      </QuickSection>
+
+      <div className="border-t-2 border-line/20 pt-5">
+        <CopyLink app="quick" label="Copier le lien de cette page" />
+      </div>
     </div>
   )
 }
@@ -148,7 +280,7 @@ export function ProjectApp({ payload: p }) {
           <motion.img
             key={p.images[current]}
             src={p.images[current]}
-            alt={`${p.title} — aperçu ${current + 1} sur ${p.images.length}`}
+            alt={`${p.title}, aperçu ${current + 1} sur ${p.images.length}`}
             width="1280"
             height="720"
             initial={{ opacity: 0 }}
@@ -179,9 +311,18 @@ export function ProjectApp({ payload: p }) {
           <h3 className="font-pixel text-3xl font-bold leading-tight">{p.title}</h3>
           <p className="mt-1 font-medium">{p.subtitle}</p>
           <p className="mt-3 leading-relaxed">{p.description}</p>
-          <Btn as="a" href={p.link.href} target="_blank" rel="noopener noreferrer" variant="sun" className="mt-5">
-            {p.link.label} <ArrowUpRight size={16} weight="bold" />
-          </Btn>
+          {p.role && (
+            <p className="mt-3 border-l-4 border-tomato bg-white px-3 py-2 leading-relaxed">
+              <strong className="font-pixel text-base">Mon rôle : </strong>
+              {p.role}
+            </p>
+          )}
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Btn as="a" href={p.link.href} target="_blank" rel="noopener noreferrer" variant="sun">
+              {p.link.label} <ArrowUpRight size={16} weight="bold" />
+            </Btn>
+            <CopyLink app="project" payload={p} />
+          </div>
         </div>
         <div>
           <p className="font-pixel text-sm uppercase tracking-wider text-muted">Couches codées</p>
@@ -528,28 +669,64 @@ export function PrivacyApp({ os }) {
 
 export const APPS = {
   welcome: { title: 'Bienvenue.txt', icon: 'doc', accent: 'sky', w: 600, h: 740, Comp: Welcome },
+  quick: { title: 'Version_rapide.txt', icon: 'doc', accent: 'sun', w: 780, h: 760, Comp: QuickApp },
   projects: { title: 'Projets', icon: 'folder', accent: 'tomato', w: 760, h: 560, Comp: Explorer },
   project: { title: (p) => p.file, icon: 'doc', accent: 'tomato', w: 820, h: 640, Comp: ProjectApp },
   system: { title: 'À propos de cet Adam', icon: 'computer', accent: 'mint', w: 700, h: 640, Comp: SystemApp },
   journal: { title: 'journal_systeme.log', icon: 'log', accent: 'sun', w: 760, h: 480, Comp: JournalApp },
-  mail: { title: 'Messagerie — Nouveau message', icon: 'mail', accent: 'pink', w: 640, h: 640, Comp: MailApp },
+  mail: { title: 'Messagerie : nouveau message', icon: 'mail', accent: 'pink', w: 640, h: 640, Comp: MailApp },
   motus: { title: 'Motus.exe', icon: 'motus', accent: 'sun', w: 620, h: 700, Comp: MotusApp },
   trash: { title: 'Corbeille', icon: 'trash', accent: 'sky', w: 400, h: 220, Comp: TrashApp },
   shutdown: { title: 'Éteindre', icon: 'computer', accent: 'tomato', w: 440, h: 260, Comp: ShutdownApp },
+  snake: { title: 'Snake.exe', icon: 'snake', accent: 'mint', w: 420, h: 560, Comp: SnakeGame },
+  mines: { title: 'Démineur.exe', icon: 'mine', accent: 'sky', w: 440, h: 590, Comp: MinesGame },
+  glouton: { title: 'Glouton.exe', icon: 'glouton', accent: 'sun', w: 520, h: 560, Comp: GloutonGame },
   legal: { title: 'Mentions_legales.txt', icon: 'doc', accent: 'sky', w: 680, h: 680, Comp: LegalApp },
   privacy: { title: 'Confidentialite.txt', icon: 'doc', accent: 'mint', w: 700, h: 700, Comp: PrivacyApp },
 }
 
-// Ancres partageables : /#mentions-legales et /#confidentialite ouvrent la fenêtre correspondante.
-export const HASH_APPS = { '#mentions-legales': 'legal', '#confidentialite': 'privacy' }
+// Liens directs : chaque fenêtre a son ancre (ex. /#projet-motus, /#snake, /#version-rapide).
+const APP_HASHES = {
+  '#version-rapide': 'quick',
+  '#projets': 'projects',
+  '#a-propos': 'system',
+  '#parcours': 'journal',
+  '#contact': 'mail',
+  '#snake': 'snake',
+  '#demineur': 'mines',
+  '#glouton': 'glouton',
+  '#motus': 'motus',
+  '#mentions-legales': 'legal',
+  '#confidentialite': 'privacy',
+}
+
+export function resolveHash(hash) {
+  if (APP_HASHES[hash]) return { app: APP_HASHES[hash] }
+  const m = hash.match(/^#projet-(.+)$/)
+  const p = m && PROJECTS.find((x) => x.id === m[1])
+  return p ? { app: 'project', payload: p } : null
+}
+
+export function hashFor(app, payload) {
+  if (app === 'project') return `#projet-${payload.id}`
+  return Object.keys(APP_HASHES).find((k) => APP_HASHES[k] === app) || ''
+}
+
+export function linkFor(app, payload) {
+  return `${window.location.origin}${window.location.pathname}${hashFor(app, payload)}`
+}
 
 // Icônes du bureau, dans l'ordre.
 export const DESKTOP = [
   { app: 'welcome', label: 'Bienvenue.txt', icon: 'doc' },
+  { app: 'quick', label: 'Version rapide', icon: 'doc' },
   { app: 'projects', label: 'Projets', icon: 'folder' },
   { app: 'system', label: 'À propos de cet Adam', icon: 'computer' },
   { app: 'journal', label: 'Parcours.log', icon: 'log' },
   { app: 'mail', label: 'Messagerie', icon: 'mail' },
+  { app: 'snake', label: 'Snake.exe', icon: 'snake' },
+  { app: 'mines', label: 'Démineur.exe', icon: 'mine' },
+  { app: 'glouton', label: 'Glouton.exe', icon: 'glouton' },
   { app: 'motus', label: 'Motus.exe', icon: 'motus' },
   { href: CV_URL, label: 'CV.pdf', icon: 'pdf' },
   { app: 'trash', label: 'Corbeille', icon: 'trash' },

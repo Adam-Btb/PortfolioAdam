@@ -29,7 +29,7 @@ export const LEGAL_NOTICE = [
   },
   {
     h: 'Hébergeur',
-    p: [`${HOST.name} — ${HOST.address}.`, `Contact : ${HOST.contact} · ${HOST.site}`],
+    p: [`${HOST.name}, ${HOST.address}.`, `Contact : ${HOST.contact} · ${HOST.site}`],
   },
   {
     h: 'Propriété intellectuelle',
@@ -37,6 +37,7 @@ export const LEGAL_NOTICE = [
       `Les textes, le code, le design d'AdamOS et les icônes en pixel art sont la propriété d'Adam Bettayeb, sauf mention contraire. Toute reproduction ou réutilisation sans autorisation écrite préalable est interdite (articles L.111-1 et suivants du Code de la propriété intellectuelle).`,
       `Les captures d'écran présentent des projets réalisés par Adam Bettayeb, dont certains en équipe dans le cadre du BUT MMI.`,
       `Les marques, noms et visuels de tiers restent la propriété de leurs titulaires respectifs, notamment le nom du jeu télévisé « Motus » et les personnages de l'univers Dragon Ball visibles dans le projet étudiant Motus. Ils apparaissent dans un cadre pédagogique, non commercial, sans affiliation avec leurs ayants droit. Sur simple demande d'un ayant droit, le contenu concerné sera retiré.`,
+      `Le mini-jeu « Glouton » s'inspire du principe de Pac-Man (marque de Bandai Namco) : c'est une réimplémentation originale, sans aucun nom, graphisme ni son du jeu d'origine. « Snake » et « Démineur » désignent des genres de jeux génériques.`,
       `Polices : Pixelify Sans et IBM Plex (licence SIL Open Font License 1.1). Icônes d'interface : Phosphor Icons (licence MIT).`,
     ],
   },
@@ -67,7 +68,7 @@ export const PRIVACY = [
   },
   {
     h: 'Responsable du traitement',
-    p: [`Adam Bettayeb — ${EMAIL}.`],
+    p: [`Adam Bettayeb, joignable à ${EMAIL}.`],
   },
   {
     h: 'Formulaire de contact (Messagerie)',
@@ -83,13 +84,13 @@ export const PRIVACY = [
   {
     h: 'Hébergement et données techniques',
     p: [
-      `Comme tout hébergeur, ${HOST.name} enregistre des données techniques lors de votre visite (adresse IP, date et heure, navigateur, page demandée) pour assurer le fonctionnement et la sécurité du site. Base légale : intérêt légitime (article 6.1.f). Vercel est situé aux États-Unis et adhère au Data Privacy Framework UE–États-Unis, qui encadre ce transfert. La durée de conservation de ces journaux est fixée par Vercel.`,
+      `Comme tout hébergeur, ${HOST.name} enregistre des données techniques lors de votre visite (adresse IP, date et heure, navigateur, page demandée) pour assurer le fonctionnement et la sécurité du site. Base légale : intérêt légitime (article 6.1.f). Vercel est situé aux États-Unis et adhère au Data Privacy Framework entre l’UE et les États-Unis, qui encadre ce transfert. La durée de conservation de ces journaux est fixée par Vercel.`,
     ],
   },
   {
     h: 'Cookies et stockage local',
     p: [
-      `Aucun cookie n'est déposé. Le site enregistre seulement, dans le stockage de session de votre navigateur (sessionStorage), une valeur « adamos-booted » qui évite de rejouer l'écran de démarrage pendant votre visite. Elle ne contient aucune donnée personnelle et s'efface à la fermeture de l'onglet.`,
+      `Aucun cookie n'est déposé. Le site enregistre seulement, dans le stockage de session de votre navigateur (sessionStorage), une valeur « adamos-booted » qui évite de rejouer l'écran de démarrage pendant votre visite. Elle ne contient aucune donnée personnelle et s'efface à la fermeture de l'onglet. Les meilleurs scores des mini-jeux ne sont gardés qu'en mémoire, le temps de la visite.`,
       `Ce stockage sert uniquement au fonctionnement de l'interface que vous utilisez : conformément aux lignes directrices de la CNIL, il est exempté de consentement. C'est pourquoi le site n'affiche pas de bandeau cookies.`,
     ],
   },
