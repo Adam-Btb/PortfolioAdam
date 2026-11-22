@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>CV Adam Bettayeb, développeur web full stack</title>
+<!-- Source du CV : imprimé en PDF A4 avec Chrome (voir cv/README.md). -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F1F3F6;
+    --ink: #222428;
+    --soft: #4B4F57;
+    --muted: #6B7079;
+    --blue: #3F7EEA;
+    --blue-strong: #2F68D8;
+    --chip: #E2EAFB;
+    --rule: #D9DDE4;
+  }
+  html, body { width: 210mm; height: 297mm; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Lato", "Segoe UI", sans-serif;
+    font-size: 10.6pt;
+    line-height: 1.42;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: var(--blue-strong); text-decoration: none; }
+  .page { padding: 11mm 15mm 8mm; height: 297mm; overflow: hidden; }
+
+  /* En-tête */
+  header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8mm; padding-bottom: 4mm; border-bottom: 2.4px solid var(--blue); }
+  .name { font-size: 31pt; font-weight: 900; line-height: 1; letter-spacing: -0.3px; }
+  .name span { color: var(--blue); }
+  .title { margin-top: 3mm; font-size: 12.5pt; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; color: var(--blue-strong); }
+  .tagline { margin-top: 1.2mm; font-size: 10pt; color: var(--soft); }
+  .pill { display: inline-flex; align-items: center; gap: 2.2mm; margin-top: 3mm; padding: 1.6mm 4mm; border-radius: 99px; background: var(--chip); color: var(--blue-strong); font-size: 9.4pt; font-weight: 700; }
+  .pill::before { content: ""; width: 2.4mm; height: 2.4mm; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 1.2mm rgba(63, 126, 234, 0.2); }
+  .rhythm { margin-top: 2mm; font-size: 8.8pt; color: var(--muted); }
+  .contact { display: grid; grid-template-columns: auto auto; column-gap: 2.5mm; row-gap: 1.3mm; text-align: right; font-size: 9.3pt; margin-top: 1mm; }
+  .contact dt { font-size: 7.2pt; font-weight: 700; letter-spacing: 0.9px; text-transform: uppercase; color: var(--muted); align-self: center; }
+  .contact dd { text-align: left; }
+
+  /* Colonnes */
+  .cols { display: grid; grid-template-columns: 60mm 1fr; gap: 7mm; margin-top: 4.4mm; }
+  h2 { font-size: 10.6pt; font-weight: 900; letter-spacing: 1.6px; text-transform: uppercase; color: var(--blue-strong); padding-bottom: 1.4mm; border-bottom: 1px solid var(--rule); margin-bottom: 2.4mm; }
+  section + section { margin-top: 3.6mm; }
+  h3.group { font-size: 7.8pt; font-weight: 900; letter-spacing: 0.9px; text-transform: uppercase; color: var(--muted); margin: 2.2mm 0 1.4mm; }
+  h3.group:first-of-type { margin-top: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 1.4mm; }
+  .chip { padding: 0.9mm 2.4mm; border-radius: 2px; background: var(--chip); color: var(--blue-strong); font-size: 8.4pt; font-weight: 700; }
+  .chip.tag { background: #E8EAEE; color: var(--soft); font-size: 7.8pt; }
+  ul.dots { list-style: none; }
+  ul.dots li { position: relative; padding-left: 3.6mm; margin-top: 0.9mm; }
+  ul.dots li::before { content: ""; position: absolute; left: 0.4mm; top: 0.62em; width: 1.3mm; height: 1.3mm; border-radius: 50%; background: var(--blue); }
+  .row { display: flex; justify-content: space-between; gap: 3mm; }
+  .lang { font-size: 9.6pt; margin-top: 1mm; }
+  .lang b { font-weight: 700; }
+  .lang span { color: var(--muted); }
+  .interest { font-size: 9.6pt; margin-top: 1.1mm; }
+  .interest b { color: var(--blue-strong); font-weight: 700; }
+  .interest span { color: var(--soft); }
+
+  .profile { font-size: 10.1pt; color: var(--ink); }
+  sup { font-size: 0.7em; line-height: 0; }
+  .item + .item { margin-top: 2.3mm; }
+  .item-head { display: flex; justify-content: space-between; align-items: baseline; gap: 3mm; }
+  .item-title { font-weight: 900; font-size: 10.4pt; }
+  .item-title .org { color: var(--blue-strong); }
+  .item-title a.link { font-size: 8.4pt; font-weight: 700; margin-left: 1.6mm; }
+  .date { font-size: 8.6pt; font-weight: 700; color: var(--muted); white-space: nowrap; }
+  .meta { font-size: 8.4pt; font-weight: 700; color: var(--muted); margin-top: 0.8mm; }
+  .item ul.dots { font-size: 9.5pt; color: var(--soft); }
+  .item .chips { margin-top: 1.4mm; }
+  .item-head .chips { margin-top: 0; flex-wrap: nowrap; gap: 1mm; }
+  .item-head .chip.tag { padding: 0.7mm 1.8mm; font-size: 7.6pt; }
+  .item-head .item-title { white-space: nowrap; }
+  .sub { font-size: 8.9pt; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <h1 class="name">Adam <span>Bettayeb</span></h1>
+      <p class="title">Développeur web full stack</p>
+      <p class="tagline">Développement web, conception d'interfaces et analyse de données</p>
+      <p class="pill">En recherche d'une alternance · 2026-2027</p>
+      <p class="rhythm">Rythme 1 semaine école / 1 semaine entreprise</p>
+    </div>
+    <dl class="contact">
+      <dt>Téléphone</dt><dd><a href="tel:+33664502568">06 64 50 25 68</a></dd>
+      <dt>Email</dt><dd><a href="mailto:adam.bettayeb26@gmail.com">adam.bettayeb26@gmail.com</a></dd>
+      <dt>Portfolio</dt><dd><a href="https://adambettayeb.fr/">adambettayeb.fr</a></dd>
+      <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/adambettayeb/">in/adambettayeb</a></dd>
+      <dt>GitHub</dt><dd><a href="https://github.com/Adam-Btb">Adam-Btb</a></dd>
+      <dt>Permis</dt><dd>B</dd>
+    </dl>
+  </header>
+
+  <div class="cols">
+    <!-- Colonne gauche -->
+    <aside>
+      <section>
+        <h2>Compétences</h2>
+        <h3 class="group">Front-end</h3>
+        <div class="chips"><span class="chip">React</span><span class="chip">JavaScript</span><span class="chip">HTML / CSS</span><span class="chip">Vite</span></div>
+        <h3 class="group">Back-end &amp; bases de données</h3>
+        <div class="chips"><span class="chip">Node.js</span><span class="chip">PHP POO / MVC</span><span class="chip">SQL / MySQL</span><span class="chip">PDO</span></div>
+        <h3 class="group">Data</h3>
+        <div class="chips"><span class="chip">Analyse de KPI</span><span class="chip">Dashboards</span><span class="chip">D3.js</span></div>
+        <h3 class="group">Design</h3>
+        <div class="chips"><span class="chip">Figma</span><span class="chip">Suite Adobe</span><span class="chip">UI responsive</span></div>
+        <h3 class="group">Outils &amp; IA</h3>
+        <div class="chips"><span class="chip">Git &amp; GitHub</span><span class="chip">Claude Code</span><span class="chip">Google Cloud</span><span class="chip">Salesforce Einstein</span></div>
+      </section>
+
+      <section>
+        <h2>Savoir-être</h2>
+        <ul class="dots">
+          <li>Travail d'équipe</li>
+          <li>Adaptabilité</li>
+          <li>Persévérance</li>
+          <li>Communication</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Langues</h2>
+        <p class="lang row"><b>Anglais</b><span>B2 · Intermédiaire supérieur</span></p>
+        <p class="lang row"><b>Espagnol</b><span>B1 · Intermédiaire</span></p>
+      </section>
+
+      <section>
+        <h2>Centres d'intérêt</h2>
+        <p class="interest"><b>Voyages</b> <span>· Égypte, Portugal…</span></p>
+        <p class="interest"><b>Football</b> <span>· ancien club</span></p>
+        <p class="interest"><b>Cinéma</b></p>
+      </section>
+    </aside>
+
+    <!-- Colonne droite -->
+    <main>
+      <section>
+        <h2>Profil</h2>
+        <p class="profile">
+          Étudiant en 3<sup>e</sup> année de BUT MMI (parcours Développement Web), je recherche une alternance en
+          développement web full stack. Je développe en React, Node.js et PHP avec des bases relationnelles, et ma
+          formation comme mon stage chez Air Liquide me permettent aussi d'intervenir sur l'interface et la donnée.
+          Autonome et curieux, j'utilise l'IA au quotidien en relisant et en testant ce qu'elle produit.
+        </p>
+      </section>
+
+      <section>
+        <h2>Expériences professionnelles</h2>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">Support digital et analyse de données <span class="org">· Air Liquide</span></p>
+            <p class="date">Avr. à juil. 2026</p>
+          </div>
+          <ul class="dots">
+            <li>Analyse de données et développement de dashboards de suivi des KPI</li>
+            <li>Conception de modules d'accompagnement pour former les équipes à l'IA</li>
+            <li>Recueil des besoins métier et modélisation des workflows des équipes</li>
+            <li>Déploiement d'outils d'IA, dont Salesforce Einstein, sur Google Cloud</li>
+          </ul>
+          <p class="meta">Stage · 3 mois</p>
+        </div>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">Conseiller de vente en alternance <span class="org">· Bouygues Telecom</span></p>
+            <p class="date">2022 à 2023</p>
+          </div>
+          <ul class="dots">
+            <li>Analyse des besoins clients et conseil en solutions numériques</li>
+          </ul>
+          <p class="meta">BTS MCO</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Projets</h2>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">Motus <a class="link" href="https://motusdragonballz.gamer.gd/">Jouer en ligne ↗</a></p>
+            <div class="chips"><span class="chip tag">PHP POO</span><span class="chip tag">MVC</span><span class="chip tag">MySQL</span><span class="chip tag">PDO</span></div>
+          </div>
+          <ul class="dots">
+            <li>Application full stack en PHP orienté objet et MVC strict, sans framework</li>
+            <li>MySQL, requêtes préparées PDO et sessions sécurisées</li>
+          </ul>
+        </div>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">Bravery Quest <a class="link" href="https://sae402.onrender.com/">Jouer en ligne ↗</a></p>
+            <div class="chips"><span class="chip tag">JavaScript</span><span class="chip tag">Canvas</span><span class="chip tag">Node.js</span><span class="chip tag">Socket.IO</span></div>
+          </div>
+          <ul class="dots">
+            <li>Jeu web multijoueur en temps réel, réalisé en équipe</li>
+            <li>Design de la carte et des PNJ, code des mécaniques de soin et de combat</li>
+          </ul>
+        </div>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">La donnée mise en image <a class="link" href="https://adambettayeb.fr/SAE303/index.html">Voir en ligne ↗</a></p>
+            <div class="chips"><span class="chip tag">D3.js</span><span class="chip tag">JavaScript</span><span class="chip tag">Data</span></div>
+          </div>
+          <ul class="dots">
+            <li>Dashboard interactif sur le Baromètre ADEME : graphiques et carte SVG</li>
+          </ul>
+        </div>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">Portfolio AdamOS <a class="link" href="https://adambettayeb.fr/">Voir en ligne ↗</a></p>
+            <div class="chips"><span class="chip tag">React</span><span class="chip tag">Vite</span><span class="chip tag">Framer Motion</span></div>
+          </div>
+          <ul class="dots">
+            <li>Interface de bureau rétro sur mesure : fenêtres, mini-jeux, version rapide</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Formations</h2>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">BUT Métiers du Multimédia et de l'Internet (MMI)</p>
+            <p class="date">2024-2027</p>
+          </div>
+          <p class="sub">Parcours Développement Web · IUT de Bobigny · Université Sorbonne Paris Nord</p>
+        </div>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">BTS Management Commercial Opérationnel (MCO)</p>
+            <p class="date">2022-2023</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item-head">
+            <p class="item-title">Bac STI2D, option Système d'Information et Numérique</p>
+            <p class="date">2019-2021</p>
+          </div>
+          <p class="sub">Mention Bien</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</body>
+</html>
