@@ -1,5 +1,6 @@
 import { Suspense, useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
 import { AnimatePresence, MotionConfig } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 import Window from './os/Window'
 import { APPS, hashFor, resolveHash } from './os/apps'
 import { BootScreen, DesktopIcons, MenuBar, MobileHome, OffScreen, Taskbar, Wallpaper } from './os/Shell'
@@ -193,6 +194,9 @@ export default function App() {
 
       <AnimatePresence>{!booted && <BootScreen onDone={finishBoot} />}</AnimatePresence>
       {off && <OffScreen onReboot={() => setOff(false)} />}
+
+      {/* Mesure d'audience anonyme et sans cookie (Vercel Web Analytics), voir la politique de confidentialité. */}
+      <Analytics />
     </MotionConfig>
   )
 }

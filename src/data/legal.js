@@ -5,7 +5,7 @@
 
 import { EMAIL } from './content'
 
-export const LEGAL_UPDATED = '21 novembre 2026'
+export const LEGAL_UPDATED = '22 novembre 2026'
 
 export const HOST = {
   name: 'Vercel Inc.',
@@ -63,7 +63,7 @@ export const PRIVACY = [
   {
     h: 'En bref',
     p: [
-      `Ce site ne dépose aucun cookie, n'utilise aucun outil de mesure d'audience, aucune publicité et ne charge aucune ressource tierce (les polices sont hébergées sur le site). Les seules données personnelles traitées sont celles que vous envoyez via le formulaire de contact, et les données techniques de l'hébergeur.`,
+      `Ce site ne dépose aucun cookie, n'affiche aucune publicité et ne charge aucune ressource provenant d'un autre site (les polices sont hébergées sur le site). Il utilise une mesure d'audience anonyme et sans cookie (Vercel Web Analytics) pour connaître sa fréquentation. Les seules données personnelles traitées sont celles que vous envoyez via le formulaire de contact, et les données techniques de l'hébergeur.`,
     ],
   },
   {
@@ -88,9 +88,17 @@ export const PRIVACY = [
     ],
   },
   {
+    h: "Mesure d'audience (Vercel Web Analytics)",
+    p: [
+      `Pour connaître la fréquentation du site, j'utilise Vercel Web Analytics, fourni par ${HOST.name}. Pour chaque page vue, sont enregistrés : la date et l'heure, l'adresse de la page, le site d'où vous venez, une localisation approximative (pays, région, ville), le système d'exploitation, le navigateur et le type d'appareil.`,
+      `Cette mesure est anonyme : elle ne dépose aucun cookie et n'écrit rien dans votre navigateur. Vous êtes reconnu uniquement par une empreinte technique calculée à partir de votre requête, qui est effacée au bout de 24 heures. Je n'accède qu'à des statistiques globales, qui ne permettent pas de vous identifier ni de suivre votre navigation sur d'autres sites.`,
+      `Base légale : intérêt légitime à mesurer l'audience du site (article 6.1.f du RGPD). Ces données sont traitées par Vercel aux États-Unis, dans le cadre du Data Privacy Framework entre l'UE et les États-Unis. Vous pouvez vous y opposer en bloquant les scripts de mesure d'audience dans votre navigateur, par exemple avec un bloqueur de contenu.`,
+    ],
+  },
+  {
     h: 'Cookies et stockage local',
     p: [
-      `Aucun cookie n'est déposé. Le site enregistre seulement, dans le stockage de session de votre navigateur (sessionStorage), une valeur « adamos-booted » qui évite de rejouer l'écran de démarrage pendant votre visite. Elle ne contient aucune donnée personnelle et s'efface à la fermeture de l'onglet. Les meilleurs scores des mini-jeux ne sont gardés qu'en mémoire, le temps de la visite.`,
+      `Aucun cookie n'est déposé, y compris par la mesure d'audience. Le site enregistre seulement, dans le stockage de session de votre navigateur (sessionStorage), une valeur « adamos-booted » qui évite de rejouer l'écran de démarrage pendant votre visite. Elle ne contient aucune donnée personnelle et s'efface à la fermeture de l'onglet. Les meilleurs scores des mini-jeux ne sont gardés qu'en mémoire, le temps de la visite.`,
       `Ce stockage sert uniquement au fonctionnement de l'interface que vous utilisez : conformément aux lignes directrices de la CNIL, il est exempté de consentement. C'est pourquoi le site n'affiche pas de bandeau cookies.`,
     ],
   },
