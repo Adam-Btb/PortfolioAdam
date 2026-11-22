@@ -1,6 +1,6 @@
 import { lazy, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, CheckCircle, LinkSimple, WarningCircle } from '@phosphor-icons/react'
+import { ArrowUpRight, CheckCircle, Hourglass, LinkSimple, WarningCircle } from '@phosphor-icons/react'
 import { EMAIL, JOURNAL, PROJECTS, PROOFS, SPECS, TIERS } from '../data/content'
 import { LEGAL_NOTICE, LEGAL_UPDATED, PRIVACY } from '../data/legal'
 import { PixelIcon } from './icons'
@@ -199,6 +199,7 @@ export function QuickApp({ os }) {
                     <strong>Mon rôle :</strong> {p.role}
                   </p>
                 )}
+                {p.linkNote && <p className="mt-1 text-sm text-muted">Premier chargement : environ 20 secondes (serveur gratuit).</p>}
                 <div className="mt-1 flex flex-wrap gap-x-4 text-sm">
                   <a href={p.link.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 font-medium underline underline-offset-2">
                     {p.link.label} <ArrowUpRight size={14} weight="bold" />
@@ -327,6 +328,12 @@ export function ProjectApp({ payload: p }) {
             </Btn>
             <CopyLink app="project" payload={p} />
           </div>
+          {p.linkNote && (
+            <p className="mt-3 flex items-start gap-2 text-sm text-muted">
+              <Hourglass size={16} weight="bold" className="mt-0.5 shrink-0" aria-hidden="true" />
+              {p.linkNote}
+            </p>
+          )}
         </div>
         <div>
           <p className="font-pixel text-sm uppercase tracking-wider text-muted">Couches codées</p>

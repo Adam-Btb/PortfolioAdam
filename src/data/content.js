@@ -25,6 +25,8 @@ export const PROJECTS = [
     description:
       "Un jeu web réalisé en équipe, jouable directement dans le navigateur : rendu HTML5 Canvas en JavaScript et parties en temps réel (solo ou duo) via Socket.IO, avec un serveur Node.js hébergé sur Render.",
     role: "J'ai dessiné la carte et les PNJ, et codé les mécaniques de soin et de combat.",
+    // Serveur Render gratuit : mis en veille sans visiteur, il met ~20 s à redémarrer.
+    linkNote: 'Hébergé gratuitement sur Render : le premier chargement peut prendre une vingtaine de secondes, le temps que le serveur démarre.',
     images: ['/projets/bravery-1.webp', '/projets/bravery-2.webp', '/projets/bravery-3.webp'],
     stack: ['JavaScript', 'Canvas', 'Node.js', 'Socket.IO'],
     layers: { front: 'Canvas JS', back: 'Node.js · Socket.IO' },
