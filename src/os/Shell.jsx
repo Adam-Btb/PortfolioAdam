@@ -31,7 +31,7 @@ export function MenuBar({ open }) {
         </button>
         <span className="hidden items-center gap-1.5 md:flex">
           <span className="size-2.5 bg-mint ring-2 ring-line" aria-hidden="true" />
-          Disponible · alternance 2026
+          Disponible dès maintenant
         </span>
         <time aria-label={`Heure : ${time}`}>{time}</time>
       </div>
@@ -303,7 +303,7 @@ export function MobileHome({ open }) {
           <span className="bg-sun px-1">Développeur full stack</span>
         </p>
         <p className="mt-3 leading-relaxed">
-          Interface, serveur et base de données. Je cherche une alternance d'un an pour la rentrée 2026.
+          Interface, serveur et base de données. Je cherche une alternance, disponible dès maintenant.
         </p>
         <div className="mt-4 grid gap-2">
           <button type="button" onClick={() => open('quick')} className="btn min-h-11 bg-sun font-pixel text-base font-medium">

@@ -106,5 +106,5 @@ export const JOURNAL = [
   { date: '2024', status: 'OK', text: "Missions d'intérim en logistique." },
   { date: '2024-2027', status: 'EN COURS', text: "BUT MMI à l'IUT de Bobigny (Sorbonne Paris Nord), parcours développement web et dispositifs interactifs." },
   { date: '2026-04', status: 'OK', text: "Stage chez Air Liquide (avr. à juil. 2026) : conception de modules d'accompagnement pour former les équipes à l'IA, analyse de KPI et dashboards." },
-  { date: '2026-09', status: 'EN ATTENTE', text: "Alternance d'un an, 1 semaine école / 1 semaine entreprise. Recherche d'entreprise en cours" },
+  { date: 'maintenant', status: 'EN ATTENTE', text: "Alternance, 1 semaine école / 1 semaine entreprise : disponible dès maintenant. Recherche d'entreprise en cours" },
 ]

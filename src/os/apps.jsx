@@ -85,7 +85,7 @@ export function Welcome({ os }) {
       </p>
       <p className="mt-5 max-w-[52ch] text-lg leading-relaxed">
         Je code l'interface, le serveur et la base de données. En 3<sup>e</sup> année de BUT MMI, je cherche une{' '}
-        <strong>alternance d'un an pour la rentrée 2026</strong> : une semaine à l'école, une semaine en entreprise.
+        <strong>alternance, disponible dès maintenant</strong> : une semaine à l'école, une semaine en entreprise.
       </p>
 
       <dl className="mt-5 grid gap-1.5 border-2 border-line bg-white p-4 font-mono text-sm">
@@ -149,7 +149,7 @@ export function QuickApp({ os }) {
           <span className="bg-sun px-1.5 box-decoration-clone">Développeur full stack</span>
         </p>
         <p className="mt-3 max-w-[60ch] leading-relaxed">
-          En 3<sup>e</sup> année de BUT MMI à l'IUT de Bobigny. Je cherche une <strong>alternance d'un an pour la rentrée 2026</strong>,
+          En 3<sup>e</sup> année de BUT MMI à l'IUT de Bobigny. Je cherche une <strong>alternance, disponible dès maintenant</strong>,
           au rythme d'une semaine à l'école et une semaine en entreprise.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -374,7 +374,7 @@ export function SystemApp({ os }) {
         <div>
           <p className="font-pixel text-4xl font-bold leading-none">AdamOS 26</p>
           <p className="mt-2 font-pixel text-xl">Développeur full stack</p>
-          <p className="mt-1 text-sm text-muted">Version : BUT MMI 3ᵉ année · Disponible pour une alternance à la rentrée 2026</p>
+          <p className="mt-1 text-sm text-muted">Version : BUT MMI 3ᵉ année · Disponible dès maintenant pour une alternance</p>
         </div>
       </div>
 
@@ -625,7 +625,7 @@ export function ShutdownApp({ os, close }) {
   return (
     <div className="p-6">
       <p className="font-pixel text-2xl font-semibold">Éteindre AdamOS ?</p>
-      <p className="mt-2">Avant de partir : je cherche une alternance full stack pour la rentrée 2026.</p>
+      <p className="mt-2">Avant de partir : je cherche une alternance full stack, et je suis disponible dès maintenant.</p>
       <div className="mt-5 flex flex-wrap gap-3">
         <Btn
           variant="pink"
